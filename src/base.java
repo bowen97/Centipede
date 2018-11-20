@@ -19,11 +19,12 @@ public class base {
     public void setY(int y) {
         this.y = y;
     }
-    public void loadImage (String location){
+    public Image loadImage (String location){
         ImageIcon icon = new ImageIcon(location);
         image = icon.getImage();
         width = Math.round(image.getWidth(null));
         height = Math.round(image.getHeight(null));
+        return image;
     }
     public int getX() {
         return x;

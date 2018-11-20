@@ -7,11 +7,17 @@ import java.awt.event.*;
 
 public class Blaster extends base{
     int mouseX,mouseY;
+    public static Image blasterImg;
     public Blaster(){
-        loadImage("images/Centipede_blaster.png");
+        if(image == null){
+            System.out.println("NULL");
+        }
+        loadImage("src/images/Centipede_blaster.png");
+
+
         dx = 1;
         dy = 1;
-        System.out.println("here");
+
         Game.screen.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
