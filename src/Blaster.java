@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 
 public class Blaster extends base{
-    int mouseX,mouseY;
+
     public static Image blasterImg;
     public Blaster(){
         if(image == null){
@@ -18,17 +18,7 @@ public class Blaster extends base{
         dx = 1;
         dy = 1;
 
-        Game.screen.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                super.mouseMoved(e);
-                System.out.println("moved!");
-                mouseX = e.getX();
-                mouseY = e.getY();
 
-                System.out.println("x: "+mouseX+"y: "+mouseY);
-            }
-        });
         Game.screen.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
