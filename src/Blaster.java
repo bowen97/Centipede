@@ -18,14 +18,15 @@ public class Blaster extends base{
         dx = 1;
         dy = 1;
 
-
         Game.screen.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 super.mousePressed(e);
+                //gunFly(g);
                 System.out.println("pressed!");
             }
         });
+
 
     }
 
