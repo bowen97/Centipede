@@ -24,6 +24,7 @@ public class Blaster extends base{
             public void mouseClicked(MouseEvent e) {
                 super.mousePressed(e);
                 Gun gun = new Gun();
+                gun.visibility=true;
                 gun_list.add(gun);
                 System.out.println("size:"+gun_list.size());
                 System.out.println("pressed!");

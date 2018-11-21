@@ -4,7 +4,7 @@ import javax.swing.Timer;
 import java.awt.event.*;
 import java.util.*;
 
-public class Logic extends JPanel{
+public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
     public BackGround bgimage;
     private int score;
@@ -19,6 +19,16 @@ public class Logic extends JPanel{
         crateBlaster();
 
 
+    }
+    public void actionPerformed(ActionEvent e){
+
+        gunAction();
+        repaint();
+    }
+    public void gunAction(){
+        for(int i =0; i<Blaster.gun_list.size();i++) {
+            Blaster.gun_list.get(i).x +=3;
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -64,12 +74,13 @@ public class Logic extends JPanel{
 
         for(int i =0; i<Blaster.gun_list.size();i++){
 
-            //if(Blaster.gun_list.get(i).visibility){
+            System.out.println("i: "+i+": "+Blaster.gun_list.get(i).visibility);
+            if(Blaster.gun_list.get(i).visibility){
                 System.out.println("here");
                 g.drawImage(Blaster.gun_list.get(i).getImage(),blaster.getX()+3,blaster.getY()-10,Blaster.gun_list.get(i).getWidth(),Blaster.gun_list.get(i).getHeight(),null);
 
 
-            //}
+            }
         }
         repaint();
         Toolkit.getDefaultToolkit().sync();
