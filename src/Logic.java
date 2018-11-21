@@ -11,7 +11,7 @@ public class Logic extends JPanel{
     private int point;
     int mouseX,mouseY;
     int life;
-    public ArrayList<Gun> gun_list;
+
 
     public Logic(){
         life = 5;
@@ -62,23 +62,24 @@ public class Logic extends JPanel{
         });
 
 
-//        Game.screen.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mousePressed(e);
-//                //gunFly(g);
-//                System.out.println("pressed!");
-//            }
-//        });
+        for(int i =0; i<Blaster.gun_list.size();i++){
+
+            //if(Blaster.gun_list.get(i).visibility){
+                System.out.println("here");
+                g.drawImage(Blaster.gun_list.get(i).getImage(),blaster.getX()+3,blaster.getY()-10,Blaster.gun_list.get(i).getWidth(),Blaster.gun_list.get(i).getHeight(),null);
+
+
+            //}
+        }
         repaint();
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
-    private void gunFly(Graphics g){
-        Gun gun = new Gun();
-        g.drawImage(gun.getImage(),blaster.getX(),blaster.getY(),gun.getWidth(),gun.getHeight(),null);
-        gun_list.add(gun);
-    }
+//    public void gunFly(Graphics g){
+//        Gun gun = new Gun();
+//        g.drawImage(gun.getImage(),blaster.getX(),blaster.getY(),gun.getWidth(),gun.getHeight(),null);
+//        gun_list.add(gun);
+//    }
 
     private void crateBlaster(){
         blaster = new Blaster();

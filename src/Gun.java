@@ -9,7 +9,7 @@ public class Gun extends base {
         loadImage("src/images/1_gun.png");
         dy = 6;
         y -= dy;
-
+        visibility = true;
         if(y <= 1) {
             visibility = false;
         }
