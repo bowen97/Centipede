@@ -11,9 +11,12 @@ public class Logic extends JPanel implements ActionListener{
     private int point;
     int mouseX,mouseY;
     int life;
+    private Timer timer;
 
 
     public Logic(){
+        timer = new Timer(10, this);
+        timer.start();
         life = 5;
         bgimage = new BackGround();
         crateBlaster();
@@ -21,14 +24,42 @@ public class Logic extends JPanel implements ActionListener{
 
     }
     public void actionPerformed(ActionEvent e){
-
+        System.out.println("in action");
+        blasterAction();
         gunAction();
         repaint();
     }
     public void gunAction(){
         for(int i =0; i<Blaster.gun_list.size();i++) {
-            Blaster.gun_list.get(i).x +=3;
+            Blaster.gun_list.get(i).y -=3;
         }
+    }
+    public void blasterAction(){
+        Game.screen.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+
+                mouseX = e.getX();
+                mouseY = e.getY();
+                if(mouseX>blaster.x && blaster.x< 600){
+                    //while(blaster.x<600) {
+                    blaster.x += blaster.dx;
+                    //}
+                }
+                else if(mouseX<blaster.x && blaster.x>0){
+                    blaster.x-=blaster.dx;
+                }
+                if(mouseY>blaster.y && blaster.y< 800){
+                    blaster.y+=blaster.dy;
+                }
+                else if(mouseY<blaster.y && blaster.y>0){
+                    blaster.y-=blaster.dy;
+                }
+
+
+            }
+        });
     }
 
     public void paintComponent(Graphics g){
@@ -45,31 +76,31 @@ public class Logic extends JPanel implements ActionListener{
 
 
         //make the blaster to follow with mouse
-        Game.screen.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                super.mouseMoved(e);
-
-                mouseX = e.getX();
-                mouseY = e.getY();
-                if(mouseX>blaster.x && blaster.x< 600){
-                    //while(blaster.x<600) {
-                        blaster.x += blaster.dx;
-                    //}
-                }
-                else if(mouseX<blaster.x && blaster.x>0){
-                    blaster.x-=blaster.dx;
-                }
-                if(mouseY>blaster.y && blaster.y< 800){
-                    blaster.y+=blaster.dy;
-                }
-                else if(mouseY<blaster.y && blaster.y>0){
-                    blaster.y-=blaster.dy;
-                }
-
-                //System.out.println("x: "+mouseX+"y: "+mouseY);
-            }
-        });
+//        Game.screen.addMouseMotionListener(new MouseAdapter() {
+//            @Override
+//            public void mouseMoved(MouseEvent e) {
+//                super.mouseMoved(e);
+//
+//                mouseX = e.getX();
+//                mouseY = e.getY();
+//                if(mouseX>blaster.x && blaster.x< 600){
+//                    //while(blaster.x<600) {
+//                        blaster.x += blaster.dx;
+//                    //}
+//                }
+//                else if(mouseX<blaster.x && blaster.x>0){
+//                    blaster.x-=blaster.dx;
+//                }
+//                if(mouseY>blaster.y && blaster.y< 800){
+//                    blaster.y+=blaster.dy;
+//                }
+//                else if(mouseY<blaster.y && blaster.y>0){
+//                    blaster.y-=blaster.dy;
+//                }
+//
+//
+//            }
+//        });
 
 
         for(int i =0; i<Blaster.gun_list.size();i++){
@@ -77,12 +108,12 @@ public class Logic extends JPanel implements ActionListener{
             System.out.println("i: "+i+": "+Blaster.gun_list.get(i).visibility);
             if(Blaster.gun_list.get(i).visibility){
                 System.out.println("here");
-                g.drawImage(Blaster.gun_list.get(i).getImage(),blaster.getX()+3,blaster.getY()-10,Blaster.gun_list.get(i).getWidth(),Blaster.gun_list.get(i).getHeight(),null);
+                g.drawImage(Blaster.gun_list.get(i).getImage(),Blaster.gun_list.get(i).getX()+3,Blaster.gun_list.get(i).getY()-10,Blaster.gun_list.get(i).getWidth(),Blaster.gun_list.get(i).getHeight(),null);
 
 
             }
         }
-        repaint();
+        //repaint();
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
