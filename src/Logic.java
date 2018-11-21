@@ -24,7 +24,7 @@ public class Logic extends JPanel implements ActionListener{
 
     }
     public void actionPerformed(ActionEvent e){
-        System.out.println("in action");
+
         blasterAction();
         gunAction();
         repaint();
@@ -75,53 +75,24 @@ public class Logic extends JPanel implements ActionListener{
         g.drawImage(blaster.getImage(), blaster.getX(),blaster.getY(),blaster.getWidth(),blaster.getHeight(), null);
 
 
-        //make the blaster to follow with mouse
-//        Game.screen.addMouseMotionListener(new MouseAdapter() {
-//            @Override
-//            public void mouseMoved(MouseEvent e) {
-//                super.mouseMoved(e);
-//
-//                mouseX = e.getX();
-//                mouseY = e.getY();
-//                if(mouseX>blaster.x && blaster.x< 600){
-//                    //while(blaster.x<600) {
-//                        blaster.x += blaster.dx;
-//                    //}
-//                }
-//                else if(mouseX<blaster.x && blaster.x>0){
-//                    blaster.x-=blaster.dx;
-//                }
-//                if(mouseY>blaster.y && blaster.y< 800){
-//                    blaster.y+=blaster.dy;
-//                }
-//                else if(mouseY<blaster.y && blaster.y>0){
-//                    blaster.y-=blaster.dy;
-//                }
-//
-//
-//            }
-//        });
+
 
 
         for(int i =0; i<Blaster.gun_list.size();i++){
 
-            System.out.println("i: "+i+": "+Blaster.gun_list.get(i).visibility);
+
             if(Blaster.gun_list.get(i).visibility){
-                System.out.println("here");
+
                 g.drawImage(Blaster.gun_list.get(i).getImage(),Blaster.gun_list.get(i).getX()+3,Blaster.gun_list.get(i).getY()-10,Blaster.gun_list.get(i).getWidth(),Blaster.gun_list.get(i).getHeight(),null);
 
 
             }
         }
-        //repaint();
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
-//    public void gunFly(Graphics g){
-//        Gun gun = new Gun();
-//        g.drawImage(gun.getImage(),blaster.getX(),blaster.getY(),gun.getWidth(),gun.getHeight(),null);
-//        gun_list.add(gun);
-//    }
+
 
     private void crateBlaster(){
         blaster = new Blaster();

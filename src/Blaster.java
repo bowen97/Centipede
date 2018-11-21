@@ -24,6 +24,8 @@ public class Blaster extends base{
             public void mouseClicked(MouseEvent e) {
                 super.mousePressed(e);
                 Gun gun = new Gun();
+                Sound sound = new Sound();
+                sound.play();
                 gun.visibility=true;
                 gun.x = x;
                 gun.y = y;
@@ -38,9 +40,5 @@ public class Blaster extends base{
 
 
 
-    public void move(){
-        x += dx;
-        y+= dy;
 
-    }
 }
