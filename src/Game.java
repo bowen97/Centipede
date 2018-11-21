@@ -21,20 +21,6 @@ public class Game extends JFrame{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         screen = new JPanel(new CardLayout());
 
-
-
-//        start_btn = new JButton("start");
-//
-//        ActionListener rdy_start = new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JButton button = (JButton) e.getSource();
-//
-//            }
-//        };
-//        lab = new JLabel("test");
-        //screen.add(start_btn);
-//        screen.add(lab);
         window.add(screen);
 
         Logic logic = new Logic();
@@ -42,7 +28,7 @@ public class Game extends JFrame{
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
@@ -14,14 +15,48 @@ public class Logic extends JPanel implements ActionListener{
     private Timer timer;
 
 
-    public Logic(){
+
+    public Logic() {
         timer = new Timer(10, this);
         timer.start();
         life = 5;
         bgimage = new BackGround();
         crateBlaster();
+        int temp = num_mush();
 
 
+    }
+    public int num_mush() {
+        try {
+            File file = new File("src/images/mush_num.txt");
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String st;
+            st = br.readLine();
+
+            String arr[] = st.split(" ");
+
+
+            if(arr[0].equals("high")){
+                System.out.println("high alala");
+            }
+            else if(arr[0].equals("medium")){
+                System.out.println("high alala");
+            }
+            else if(arr[0].equals("low")){
+                System.out.println("high alala");
+            }
+            else{
+                throw new IllegalArgumentException("Level of mushrooms can only be high, medium or low");
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        return 0;
     }
     public void actionPerformed(ActionEvent e){
 
