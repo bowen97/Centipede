@@ -14,7 +14,9 @@ public class Logic extends JPanel implements ActionListener{
     int mouseX,mouseY;
     int life;
     private Timer timer;
-    public static ArrayList<Mushroom> mush_list;
+    private int amount;
+    //public static ArrayList<Mushroom> mush_list;
+    public static ArrayList<Mushroom> mush_list_final;
 
 
 
@@ -26,26 +28,22 @@ public class Logic extends JPanel implements ActionListener{
         bgimage = new BackGround();
         createNewMush();
         crateBlaster();
-        int temp = num_mush();
+
 
 
     }
 
     public void createNewMush(){
-        MushCoord[][] mush_matrix =new MushCoord[16][13];
-        mush_list = new ArrayList<Mushroom>();
+        MushCoord[][] mush_matrix =new MushCoord[14][13];
+        ArrayList<Mushroom> mush_list = new ArrayList<Mushroom>();
+        mush_list_final = new ArrayList<Mushroom>();
 
-        int amount = num_mush();
-        for(int i =0;i<amount;i++){
-            Random rand = new Random();
 
-            int n = rand.nextInt(208) + 0;
-            System.out.println(n);
-        }
+
 
 
         int coX,coY;
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 14; i++) {
 
             for (int j = 0; j < 13; j++) {
                 mush_matrix[i][j]=new MushCoord(i*40+40,j*40+40);
@@ -57,18 +55,22 @@ public class Logic extends JPanel implements ActionListener{
                 //mush_matrix[i][j].print();
 
             }
-            System.out.println();
+            //System.out.println();
+        }
+
+        num_mush();
+        for(int i =0;i<amount;i++){
+            Random rand = new Random();
+
+            int n = rand.nextInt(182) + 0;
+            mush_list_final.add(mush_list.get(n));
+            System.out.println(n);
         }
 
 
-//        for(int i =0; i<10;i++){
-//            Mushroom temp= new Mushroom();
-//            mush_list.add(temp);
-//        }
-
     }
-    public int num_mush() {
-        int amount = 0;
+    public void num_mush() {
+        amount = 0;
         try {
             File file = new File("src/images/mush_num.txt");
 
@@ -84,10 +86,10 @@ public class Logic extends JPanel implements ActionListener{
                 amount = 30;
             }
             else if(arr[0].equals("medium")){
-                amount = 60;
+                amount = 20;
             }
             else if(arr[0].equals("low")){
-                amount = 90;
+                amount = 10;
             }
             else{
                 throw new IllegalArgumentException("Level of mushrooms can only be high, medium or low");
@@ -98,7 +100,7 @@ public class Logic extends JPanel implements ActionListener{
         }
 
 
-        return amount;
+//        return amount;
     }
     public void actionPerformed(ActionEvent e){
 
@@ -167,8 +169,8 @@ public class Logic extends JPanel implements ActionListener{
         }
         //try rows for mush
         //g.drawImage(mush_list.get(0).m_f_img,10,0,null);
-        for(int i =0;i<208;i++) {
-            g.drawImage(mush_list.get(i).m_f_img,mush_list.get(i).getX(), mush_list.get(i).getY(), null);
+        for(int i =0;i<amount;i++) {
+            g.drawImage(mush_list_final.get(i).m_f_img,mush_list_final.get(i).getX(), mush_list_final.get(i).getY(), null);
         }
 
 
