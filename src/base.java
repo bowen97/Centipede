@@ -9,7 +9,9 @@ public class base {
     public int height;
     public int dx;
     public int dy;
+    public int life;
     public boolean visibility = false;
+
 
     public base () {
     }

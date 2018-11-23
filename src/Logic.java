@@ -127,6 +127,9 @@ public class Logic extends JPanel implements ActionListener{
                 Mushroom mush_ele = mush_list_final.get(i_m);
                 if(gun_ele.visibility ) {
                     if ((mush_ele.getX() - 15 < gun_ele.getX() && mush_ele.getX() + 19 > gun_ele.getX()) && (mush_ele.getY() - 15 < gun_ele.getY() && mush_ele.getY() + 19 > gun_ele.getY())) {//add y constraint
+                        mush_ele.life-=1;
+                        mush_ele.picChange(mush_ele.life);
+
 //                        System.out.println("gun: "+gun_ele.getX()+" Mush: "+mush_ele.getX());
 //                        System.out.println("hit!!!");
                         gun_ele.visibility=false;
@@ -195,7 +198,9 @@ public class Logic extends JPanel implements ActionListener{
         //try rows for mush
         //g.drawImage(mush_list.get(0).m_f_img,10,0,null);
         for(int i =0;i<amount;i++) {
-            g.drawImage(mush_list_final.get(i).m_f_img,mush_list_final.get(i).getX(), mush_list_final.get(i).getY(), null);
+            if(mush_list_final.get(i).visibility) {
+                g.drawImage(mush_list_final.get(i).getImage(), mush_list_final.get(i).getX(), mush_list_final.get(i).getY(), null);
+            }
         }
 
 
