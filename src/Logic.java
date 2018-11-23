@@ -4,6 +4,7 @@ import javax.swing.Timer;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
+import java.util.Random;
 
 public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
@@ -13,6 +14,8 @@ public class Logic extends JPanel implements ActionListener{
     int mouseX,mouseY;
     int life;
     private Timer timer;
+    public static ArrayList<Mushroom> mush_list;
+
 
 
 
@@ -21,12 +24,51 @@ public class Logic extends JPanel implements ActionListener{
         timer.start();
         life = 5;
         bgimage = new BackGround();
+        createNewMush();
         crateBlaster();
         int temp = num_mush();
 
 
     }
+
+    public void createNewMush(){
+        MushCoord[][] mush_matrix =new MushCoord[16][13];
+        mush_list = new ArrayList<Mushroom>();
+
+        int amount = num_mush();
+        for(int i =0;i<amount;i++){
+            Random rand = new Random();
+
+            int n = rand.nextInt(208) + 0;
+            System.out.println(n);
+        }
+
+
+        int coX,coY;
+        for (int i = 0; i < 16; i++) {
+
+            for (int j = 0; j < 13; j++) {
+                mush_matrix[i][j]=new MushCoord(i*40+40,j*40+40);
+                Mushroom temp= new Mushroom();
+                temp.y = mush_matrix[i][j].x;
+                temp.x = mush_matrix[i][j].y;
+                mush_list.add(temp);
+
+                //mush_matrix[i][j].print();
+
+            }
+            System.out.println();
+        }
+
+
+//        for(int i =0; i<10;i++){
+//            Mushroom temp= new Mushroom();
+//            mush_list.add(temp);
+//        }
+
+    }
     public int num_mush() {
+        int amount = 0;
         try {
             File file = new File("src/images/mush_num.txt");
 
@@ -39,13 +81,13 @@ public class Logic extends JPanel implements ActionListener{
 
 
             if(arr[0].equals("high")){
-                System.out.println("high alala");
+                amount = 30;
             }
             else if(arr[0].equals("medium")){
-                System.out.println("high alala");
+                amount = 60;
             }
             else if(arr[0].equals("low")){
-                System.out.println("high alala");
+                amount = 90;
             }
             else{
                 throw new IllegalArgumentException("Level of mushrooms can only be high, medium or low");
@@ -56,7 +98,7 @@ public class Logic extends JPanel implements ActionListener{
         }
 
 
-        return 0;
+        return amount;
     }
     public void actionPerformed(ActionEvent e){
 
@@ -123,6 +165,13 @@ public class Logic extends JPanel implements ActionListener{
 
             }
         }
+        //try rows for mush
+        //g.drawImage(mush_list.get(0).m_f_img,10,0,null);
+        for(int i =0;i<208;i++) {
+            g.drawImage(mush_list.get(i).m_f_img,mush_list.get(i).getX(), mush_list.get(i).getY(), null);
+        }
+
+
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();

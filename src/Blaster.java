@@ -30,8 +30,8 @@ public class Blaster extends base{
                 gun.x = x;
                 gun.y = y;
                 gun_list.add(gun);
-                System.out.println("size:"+gun_list.size());
-                System.out.println("pressed!");
+//                System.out.println("size:"+gun_list.size());
+//                System.out.println("pressed!");
             }
         });
 
