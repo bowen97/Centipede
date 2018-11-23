@@ -68,7 +68,7 @@ public class Logic extends JPanel implements ActionListener{
             int n = rand.nextInt(182) + 0;
             mush_list_pos.add(n);
             mush_list_final.add(mush_list.get(n));
-            System.out.println("width: "+mush_list.get(n).getWidth()+"height: "+mush_list.get(n).getHeight());
+            //System.out.println("width: "+mush_list.get(n).getWidth()+"height: "+mush_list.get(n).getHeight());
             //System.out.println(n);
 
         }
@@ -116,7 +116,24 @@ public class Logic extends JPanel implements ActionListener{
     }
     public void gunAction(){//should implement every destroy here
         for(int i =0; i<Blaster.gun_list.size();i++) {
-            Blaster.gun_list.get(i).y -=3;
+            Gun gun_ele = Blaster.gun_list.get(i);
+            gun_ele.y -=5;
+
+
+        }
+        for(int i =0; i<Blaster.gun_list.size();i++) {
+            Gun gun_ele = Blaster.gun_list.get(i);
+            for(int i_m = 0;i_m<mush_list_final.size();i_m++){
+                Mushroom mush_ele = mush_list_final.get(i_m);
+                if(gun_ele.visibility ) {
+                    if ((mush_ele.getX() - 15 < gun_ele.getX() && mush_ele.getX() + 19 > gun_ele.getX())) {//add y constraint
+                        System.out.println("gun: "+gun_ele.getX()+" Mush: "+mush_ele.getX());
+                        System.out.println("hit!!!");
+                        gun_ele.visibility=false;
+                        break;
+                    }
+                }
+            }
 
         }
 
