@@ -13,6 +13,7 @@ public class Logic extends JPanel implements ActionListener{
     private int point;
     int mouseX,mouseY;
     int life;
+    private ArrayList<Integer> mush_list_pos;
     private Timer timer;
     private int amount;
     //public static ArrayList<Mushroom> mush_list;
@@ -59,12 +60,17 @@ public class Logic extends JPanel implements ActionListener{
         }
 
         num_mush();
+        mush_list_pos = new ArrayList<Integer>();
+
         for(int i =0;i<amount;i++){
             Random rand = new Random();
 
             int n = rand.nextInt(182) + 0;
+            mush_list_pos.add(n);
             mush_list_final.add(mush_list.get(n));
-            System.out.println(n);
+            System.out.println("width: "+mush_list.get(n).getWidth()+"height: "+mush_list.get(n).getHeight());
+            //System.out.println(n);
+
         }
 
 
@@ -108,10 +114,12 @@ public class Logic extends JPanel implements ActionListener{
         gunAction();
         repaint();
     }
-    public void gunAction(){
+    public void gunAction(){//should implement every destroy here
         for(int i =0; i<Blaster.gun_list.size();i++) {
             Blaster.gun_list.get(i).y -=3;
+
         }
+
     }
     public void blasterAction(){
         Game.screen.addMouseMotionListener(new MouseAdapter() {
