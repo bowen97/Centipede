@@ -125,7 +125,7 @@ public class Logic extends JPanel implements ActionListener{
             Gun gun_ele = Blaster.gun_list.get(i);
             for(int i_m = 0;i_m<mush_list_final.size();i_m++){
                 Mushroom mush_ele = mush_list_final.get(i_m);
-                if(gun_ele.visibility ) {
+                if(gun_ele.visibility && mush_ele.visibility) {
                     if ((mush_ele.getX() - 15 < gun_ele.getX() && mush_ele.getX() + 19 > gun_ele.getX()) && (mush_ele.getY() - 15 < gun_ele.getY() && mush_ele.getY() + 19 > gun_ele.getY())) {//add y constraint
                         mush_ele.life-=1;
                         mush_ele.picChange(mush_ele.life);
