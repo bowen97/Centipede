@@ -24,6 +24,7 @@ public class Mushroom extends base{
         }
         else if(m_life == 0){
             visibility = false;
+            Logic.score+=5;
         }
     }
 }

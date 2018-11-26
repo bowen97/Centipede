@@ -9,7 +9,7 @@ import java.util.Random;
 public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
     public BackGround bgimage;
-    private int score;
+    public static int score=0;
     private int point;
     int mouseX,mouseY;
     int life;
@@ -129,6 +129,7 @@ public class Logic extends JPanel implements ActionListener{
                     if ((mush_ele.getX() - 15 < gun_ele.getX() && mush_ele.getX() + 19 > gun_ele.getX()) && (mush_ele.getY() - 15 < gun_ele.getY() && mush_ele.getY() + 19 > gun_ele.getY())) {//add y constraint
                         mush_ele.life-=1;
                         mush_ele.picChange(mush_ele.life);
+                        score+=1;
 
 //                        System.out.println("gun: "+gun_ele.getX()+" Mush: "+mush_ele.getX());
 //                        System.out.println("hit!!!");
@@ -176,7 +177,7 @@ public class Logic extends JPanel implements ActionListener{
         Game.screen.setBackground(Color.BLACK);
         g.setFont(myFont);
         g.setColor(Color.red);
-        score = 0;
+        //score = 0;
         g.drawString("Score: "+score+" HP: "+life,100,15);
 
         g.drawImage(blaster.getImage(), blaster.getX(),blaster.getY(),blaster.getWidth(),blaster.getHeight(), null);
