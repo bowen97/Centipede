@@ -16,6 +16,7 @@ public class Logic extends JPanel implements ActionListener{
     private ArrayList<Integer> mush_list_pos;
     private Timer timer;
     private int amount;
+    private int centDestory=0;
     //public static ArrayList<Mushroom> mush_list;
     public static ArrayList<Mushroom> mush_list_final;
     public static ArrayList<Centipede> cent_list;
@@ -91,10 +92,7 @@ public class Logic extends JPanel implements ActionListener{
         }
 
 
-//        for (int i=0;i<Mushposition.size();i++){
-//            System.out.println(Mushposition.get(i).y);
-//            //Mushposition.get(i).print();
-//        }
+
 
 
 
@@ -161,10 +159,10 @@ public class Logic extends JPanel implements ActionListener{
 
 
             if(centEle.direction.equals("left")) {
-                centEle.x -= 1;
+                centEle.x -= 2;
             }
             else if(centEle.direction.equals("right")){
-                centEle.x+=1;
+                centEle.x+=2;
             }
 
         }
@@ -187,8 +185,9 @@ public class Logic extends JPanel implements ActionListener{
                         mush_ele.life-=1;
                         mush_ele.picChange(mush_ele.life);
                         score+=1;
-                        if(mush_ele.visibility==false){
-                            Mushposition.remove(i_m);
+                        if(mush_ele.visibility==false){//bug fix
+                            //Mushposition.remove(i_m);
+                            Mushposition.get(i_m).used=true;
                         }
                         gun_ele.visibility=false;
                         break;
@@ -205,8 +204,12 @@ public class Logic extends JPanel implements ActionListener{
                             score+=2;
                         }
                         else if(cent_ele.life==0){
+                            centDestory++;
                             score+=5;
                             cent_ele.visibility=false;
+                        }
+                        if(centDestory==6){
+                            score+=600;
                         }
                         gun_ele.visibility=false;
 
