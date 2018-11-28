@@ -1,5 +1,5 @@
 public class MushCoord {
-    public static int x,y;
+    public int x,y;
     public MushCoord(int nX,int nY){
         this.x = nX;
         this.y =nY;

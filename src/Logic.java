@@ -78,6 +78,7 @@ public class Logic extends JPanel implements ActionListener{
 
         num_mush();
         mush_list_pos = new ArrayList<Integer>();
+        Mushposition = new ArrayList<MushCoord>();
 
         for(int i =0;i<amount;i++){
             Random rand = new Random();
@@ -85,19 +86,15 @@ public class Logic extends JPanel implements ActionListener{
             int n = rand.nextInt(182) + 0;
             mush_list_pos.add(n);
             mush_list_final.add(mush_list.get(n));
-            //System.out.println("width: "+mush_list.get(n).getWidth()+"height: "+mush_list.get(n).getHeight());
-            //System.out.println(n);
+            Mushposition.add(new MushCoord(mush_list.get(n).getX(),mush_list.get(n).getY()));
 
         }
-        Mushposition = new ArrayList<MushCoord>();
-        for(int i=0; i<mush_list_final.size();i++){
-            Mushroom ele = mush_list_final.get(i);
-            Mushposition.add(new MushCoord(ele.getX(),ele.getY()));
-        }
-        Mushposition.add(new MushCoord(100,100));
-        if(Mushposition.contains(new MushCoord(100,100))){
-            System.out.println("have!!!");
-        }
+
+
+//        for (int i=0;i<Mushposition.size();i++){
+//            System.out.println(Mushposition.get(i).y);
+//            //Mushposition.get(i).print();
+//        }
 
 
 
@@ -146,15 +143,14 @@ public class Logic extends JPanel implements ActionListener{
     }
     private void centipedeAction(){
 
-
-
-
         for (int i=0;i<cent_list.size();i++){
             Centipede centEle = cent_list.get(i);
-//            for(int j=0; j<mush_list_final.size();j++) {
-//                Mushroom mushEle = mush_list_final.get(j);
+            MushCoord centCoord = new MushCoord(centEle.getX(),centEle.getY());
+//            if(Mushposition.contains(centCoord)){
+//                System.out.println("meet!!");
+//            }
 
-                if (centEle.x == 0 || centEle.x == 580) {
+                if (centEle.x == 0 || centEle.x == 580||Mushposition.contains(centCoord)) {
                     centEle.y += 40;
                     if (centEle.direction.equals("left")) {
                         centEle.direction = "right";
@@ -191,9 +187,9 @@ public class Logic extends JPanel implements ActionListener{
                         mush_ele.life-=1;
                         mush_ele.picChange(mush_ele.life);
                         score+=1;
-
-//                        System.out.println("gun: "+gun_ele.getX()+" Mush: "+mush_ele.getX());
-//                        System.out.println("hit!!!");
+                        if(mush_ele.visibility==false){
+                            Mushposition.remove(i_m);
+                        }
                         gun_ele.visibility=false;
                         break;
                     }
