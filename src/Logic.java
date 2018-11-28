@@ -10,9 +10,9 @@ public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
     public BackGround bgimage;
     public static int score=0;
-    private int point;
+
     int mouseX,mouseY;
-    int life;
+    int player_life;
     private ArrayList<Integer> mush_list_pos;
     private Timer timer;
     private int amount;
@@ -27,7 +27,7 @@ public class Logic extends JPanel implements ActionListener{
     public Logic() {
         timer = new Timer(10, this);
         timer.start();
-        life = 5;
+        player_life = 5;
         bgimage = new BackGround();
         createNewMush();
         crateBlaster();
@@ -146,9 +146,7 @@ public class Logic extends JPanel implements ActionListener{
         for (int i=0;i<cent_list.size();i++){
             Centipede centEle = cent_list.get(i);
             MushCoord centCoord = new MushCoord(centEle.getX(),centEle.getY());
-//            if(Mushposition.contains(centCoord)){
-//                System.out.println("meet!!");
-//            }
+//
 
                 if (centEle.x == 0 || centEle.x == 580||Mushposition.contains(centCoord)) {
                     centEle.y += 40;
@@ -163,21 +161,23 @@ public class Logic extends JPanel implements ActionListener{
 
 
             if(centEle.direction.equals("left")) {
-                centEle.x -= 4;
+                centEle.x -= 1;
             }
             else if(centEle.direction.equals("right")){
-                centEle.x+=4;
+                centEle.x+=1;
             }
 
         }
     }
     public void gunAction(){//should implement every destroy here
+
         for(int i =0; i<Blaster.gun_list.size();i++) {
             Gun gun_ele = Blaster.gun_list.get(i);
             gun_ele.y -=5;
 
 
         }
+
         for(int i =0; i<Blaster.gun_list.size();i++) {
             Gun gun_ele = Blaster.gun_list.get(i);
             for(int i_m = 0;i_m<mush_list_final.size();i_m++){
@@ -192,6 +192,24 @@ public class Logic extends JPanel implements ActionListener{
                         }
                         gun_ele.visibility=false;
                         break;
+                    }
+                }
+            }
+            for(int i_c=0;i_c<cent_list.size();i_c++){
+                Centipede cent_ele = cent_list.get(i_c);
+                if(gun_ele.visibility && cent_ele.visibility) {
+                    if ((cent_ele.getX() - 15 < gun_ele.getX() && cent_ele.getX() + 19 > gun_ele.getX()) && (cent_ele.getY() - 15 < gun_ele.getY() && cent_ele.getY() + 19 > gun_ele.getY())) {
+                        cent_ele.life-=1;
+                        System.out.println(cent_ele.life);
+                        if(cent_ele.life==1){
+                            score+=2;
+                        }
+                        else if(cent_ele.life==0){
+                            score+=5;
+                            cent_ele.visibility=false;
+                        }
+                        gun_ele.visibility=false;
+
                     }
                 }
             }
@@ -269,7 +287,7 @@ public class Logic extends JPanel implements ActionListener{
         }
 
 
-        g.drawString("Score: "+score+" HP: "+life,100,15);
+        g.drawString("Score: "+score+" HP: "+player_life,100,15);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }

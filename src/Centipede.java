@@ -5,6 +5,7 @@ public class Centipede extends base {
     Image body;
     public  String direction;
 
+
     public Centipede(int nx,int ny){
         //head = loadImage("src/images/Centipede_head.png");
         //body =
@@ -12,6 +13,7 @@ public class Centipede extends base {
         x=nx;
         y=ny;
         direction="left";
+        life=2;//die after hit twice
 
 
 
