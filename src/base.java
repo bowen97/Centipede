@@ -10,7 +10,7 @@ public class base {
     public int dx;
     public int dy;
     public int life;
-    public boolean visibility = false;
+    public boolean visibility = true;
 
 
     public base () {

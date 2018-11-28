@@ -18,6 +18,8 @@ public class Logic extends JPanel implements ActionListener{
     private int amount;
     //public static ArrayList<Mushroom> mush_list;
     public static ArrayList<Mushroom> mush_list_final;
+    public static ArrayList<Centipede> cent_list;
+    private ArrayList<MushCoord> Mushposition;
 
 
 
@@ -29,12 +31,27 @@ public class Logic extends JPanel implements ActionListener{
         bgimage = new BackGround();
         createNewMush();
         crateBlaster();
+        createCentipede();
 
 
 
     }
 
-    public void createNewMush(){
+
+    private void createCentipede(){
+        cent_list = new ArrayList<Centipede>();
+        cent_list.add(new Centipede(160,0));
+        for(int i=1;i<6;i++){
+            Centipede prv = cent_list.get(i-1);
+            int new_x = prv.getX();
+            int new_y = prv.getY();
+
+            cent_list.add(new Centipede(new_x+40,new_y));
+
+        }
+    }
+
+    private void createNewMush(){
         MushCoord[][] mush_matrix =new MushCoord[14][13];
         ArrayList<Mushroom> mush_list = new ArrayList<Mushroom>();
         mush_list_final = new ArrayList<Mushroom>();
@@ -72,9 +89,21 @@ public class Logic extends JPanel implements ActionListener{
             //System.out.println(n);
 
         }
+        Mushposition = new ArrayList<MushCoord>();
+        for(int i=0; i<mush_list_final.size();i++){
+            Mushroom ele = mush_list_final.get(i);
+            Mushposition.add(new MushCoord(ele.getX(),ele.getY()));
+        }
+        Mushposition.add(new MushCoord(100,100));
+        if(Mushposition.contains(new MushCoord(100,100))){
+            System.out.println("have!!!");
+        }
+
 
 
     }
+
+
     public void num_mush() {
         amount = 0;
         try {
@@ -112,7 +141,39 @@ public class Logic extends JPanel implements ActionListener{
 
         blasterAction();
         gunAction();
+        centipedeAction();
         repaint();
+    }
+    private void centipedeAction(){
+
+
+
+
+        for (int i=0;i<cent_list.size();i++){
+            Centipede centEle = cent_list.get(i);
+//            for(int j=0; j<mush_list_final.size();j++) {
+//                Mushroom mushEle = mush_list_final.get(j);
+
+                if (centEle.x == 0 || centEle.x == 580) {
+                    centEle.y += 40;
+                    if (centEle.direction.equals("left")) {
+                        centEle.direction = "right";
+                    } else if (centEle.direction.equals("right")) {
+                        centEle.direction = "left";
+                    }
+
+                }
+//            }
+
+
+            if(centEle.direction.equals("left")) {
+                centEle.x -= 4;
+            }
+            else if(centEle.direction.equals("right")){
+                centEle.x+=4;
+            }
+
+        }
     }
     public void gunAction(){//should implement every destroy here
         for(int i =0; i<Blaster.gun_list.size();i++) {
@@ -177,8 +238,8 @@ public class Logic extends JPanel implements ActionListener{
         Game.screen.setBackground(Color.BLACK);
         g.setFont(myFont);
         g.setColor(Color.red);
-        //score = 0;
-        g.drawString("Score: "+score+" HP: "+life,100,15);
+
+
 
         g.drawImage(blaster.getImage(), blaster.getX(),blaster.getY(),blaster.getWidth(),blaster.getHeight(), null);
 
@@ -203,9 +264,16 @@ public class Logic extends JPanel implements ActionListener{
                 g.drawImage(mush_list_final.get(i).getImage(), mush_list_final.get(i).getX(), mush_list_final.get(i).getY(), null);
             }
         }
+        for(int i=0;i<cent_list.size();i++){
+            Centipede oneCent = cent_list.get(i);
+            if(oneCent.visibility){
+                g.drawImage(oneCent.getImage(),oneCent.getX(),oneCent.getY(),null);
+
+            }
+        }
 
 
-
+        g.drawString("Score: "+score+" HP: "+life,100,15);
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }

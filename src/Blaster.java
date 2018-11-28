@@ -10,9 +10,9 @@ public class Blaster extends base{
     public static ArrayList<Gun> gun_list;
     public static Image blasterImg;
     public Blaster(){
-        if(image == null){
-            System.out.println("NULL");
-        }
+//        if(image == null){
+//            System.out.println("NULL");
+//        }
         loadImage("src/images/Centipede_blaster.png");
 
 
