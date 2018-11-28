@@ -16,7 +16,7 @@ public class Logic extends JPanel implements ActionListener{
     private ArrayList<Integer> mush_list_pos;
     private Timer timer;
     private int amount;
-    private int centDestory=0;
+    private int centDestory;
     //public static ArrayList<Mushroom> mush_list;
     public static ArrayList<Mushroom> mush_list_final;
     public static ArrayList<Centipede> cent_list;
@@ -40,6 +40,7 @@ public class Logic extends JPanel implements ActionListener{
 
 
     private void createCentipede(){
+        centDestory=0;
         cent_list = new ArrayList<Centipede>();
         cent_list.add(new Centipede(160,0));
         for(int i=1;i<6;i++){
@@ -147,7 +148,9 @@ public class Logic extends JPanel implements ActionListener{
 //
 
                 if (centEle.x == 0 || centEle.x == 580||Mushposition.contains(centCoord)) {
-                    centEle.y += 40;
+                    if(centEle.y<600) {
+                        centEle.y += 40;
+                    }
                     if (centEle.direction.equals("left")) {
                         centEle.direction = "right";
                     } else if (centEle.direction.equals("right")) {
@@ -199,7 +202,7 @@ public class Logic extends JPanel implements ActionListener{
                 if(gun_ele.visibility && cent_ele.visibility) {
                     if ((cent_ele.getX() - 15 < gun_ele.getX() && cent_ele.getX() + 19 > gun_ele.getX()) && (cent_ele.getY() - 15 < gun_ele.getY() && cent_ele.getY() + 19 > gun_ele.getY())) {
                         cent_ele.life-=1;
-                        System.out.println(cent_ele.life);
+                        //System.out.println(cent_ele.life);
                         if(cent_ele.life==1){
                             score+=2;
                         }
@@ -210,6 +213,8 @@ public class Logic extends JPanel implements ActionListener{
                         }
                         if(centDestory==6){
                             score+=600;
+                            createCentipede();
+
                         }
                         gun_ele.visibility=false;
 
