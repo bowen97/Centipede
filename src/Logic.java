@@ -56,7 +56,7 @@ public class Logic extends JPanel implements ActionListener{
             int new_x = prv.getX();
             int new_y = prv.getY();
 
-            cent_list.add(new Centipede(new_x+40,new_y,false));
+            cent_list.add(new Centipede(new_x+40,new_y,true));
 
         }
     }
@@ -143,10 +143,19 @@ public class Logic extends JPanel implements ActionListener{
     }
     public void actionPerformed(ActionEvent e){
 
+        //becomeHead();
         blasterAction();
         gunAction();
         centipedeAction();
         repaint();
+    }
+    private void becomeHead(){
+        //after one section dies new head is generated
+        for(int i=1; i<cent_list.size();i++){
+            if(!cent_list.get(i-1).visibility){
+                cent_list.get(i).head=true;
+            }
+        }
     }
     private void centipedeAction(){
 
@@ -173,7 +182,7 @@ public class Logic extends JPanel implements ActionListener{
                 }
 
 
-
+                //Centipede movement
                 if (centEle.x == 0 || centEle.x == 580||Mushposition.contains(centCoord)) {
                     if(centEle.y<600) {
                         centEle.y += 40;
@@ -187,7 +196,7 @@ public class Logic extends JPanel implements ActionListener{
                 }
 //            }
 
-
+            //Centipede movement
             if(centEle.direction.equals("left")) {
                 centEle.x -= 4;
             }
