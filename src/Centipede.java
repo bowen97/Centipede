@@ -1,14 +1,13 @@
 import java.awt.*;
 
 public class Centipede extends base {
-    Image head;
-    Image body;
+
+    public boolean head;//detect if it's the head
     public  String direction;
 
 
-    public Centipede(int nx,int ny){
-        //head = loadImage("src/images/Centipede_head.png");
-        //body =
+    public Centipede(int nx,int ny,boolean if_head){
+        head=if_head;
         loadImage("src/images/Centipede_body.png");
         x=nx;
         y=ny;

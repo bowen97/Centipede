@@ -1,9 +1,7 @@
 import java.awt.*;
 
 public class Mushroom extends base{
-    //public static Image m_img;
-//    public static Image m_1_img;
-//    public static Image m_2_img;
+
 
 
     public Mushroom() {
@@ -11,11 +9,13 @@ public class Mushroom extends base{
         visibility=true;
 
         loadImage("src/images/Centipede_mushroom_damage0.png");
-//        m_1_img=loadImage("src/images/Centipede_mushroom_damage2.png");
-//        m_2_img=loadImage("src/images/Centipede_mushroom_damage3.png");
+
     }
     public void picChange(int m_life){
-        if(m_life==2) {
+        if(m_life==3){
+            loadImage("src/images/Centipede_mushroom_damage0.png");
+        }
+        else if(m_life==2) {
             loadImage("src/images/Centipede_mushroom_damage2.png");
 
         }

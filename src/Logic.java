@@ -9,6 +9,7 @@ import java.util.Random;
 public class Logic extends JPanel implements ActionListener{
     public Blaster blaster;
     public BackGround bgimage;
+    public ArrayList<Spider> spider_list;
     public static int score=0;
 
     int mouseX,mouseY;
@@ -33,8 +34,15 @@ public class Logic extends JPanel implements ActionListener{
         createNewMush();
         crateBlaster();
         createCentipede();
+        createSpider();
 
 
+
+
+    }
+    private void createSpider(){
+        spider_list = new ArrayList<Spider>();
+        spider_list.add(new Spider(40,0));
 
     }
 
@@ -42,13 +50,13 @@ public class Logic extends JPanel implements ActionListener{
     private void createCentipede(){
         centDestory=0;
         cent_list = new ArrayList<Centipede>();
-        cent_list.add(new Centipede(160,0));
+        cent_list.add(new Centipede(160,0,true));
         for(int i=1;i<6;i++){
             Centipede prv = cent_list.get(i-1);
             int new_x = prv.getX();
             int new_y = prv.getY();
 
-            cent_list.add(new Centipede(new_x+40,new_y));
+            cent_list.add(new Centipede(new_x+40,new_y,false));
 
         }
     }
@@ -145,7 +153,26 @@ public class Logic extends JPanel implements ActionListener{
         for (int i=0;i<cent_list.size();i++){
             Centipede centEle = cent_list.get(i);
             MushCoord centCoord = new MushCoord(centEle.getX(),centEle.getY());
-//
+            //when player dies
+                if(centEle.head&& centEle.visibility&&(centEle.getX() - 15 < blaster.getX() && centEle.getX() + 19 > blaster.getX()) && (centEle.getY() - 15 < blaster.getY() && centEle.getY() + 19 > blaster.getY())){
+
+                    blaster.setX(300);
+                    blaster.setY(750);
+                    player_life-=1;
+                    for(int z=0;z<mush_list_final.size();z++){
+                        Mushroom mushEle = mush_list_final.get(z);
+                        mushEle.life=3;
+                        mushEle.picChange(3);
+                        mushEle.visibility=true;
+                        if(Mushposition.get(z).used){
+                            score+=10;
+                        }
+                        Mushposition.get(z).used=false;
+                    }
+
+                }
+
+
 
                 if (centEle.x == 0 || centEle.x == 580||Mushposition.contains(centCoord)) {
                     if(centEle.y<600) {
@@ -162,10 +189,10 @@ public class Logic extends JPanel implements ActionListener{
 
 
             if(centEle.direction.equals("left")) {
-                centEle.x -= 2;
+                centEle.x -= 4;
             }
             else if(centEle.direction.equals("right")){
-                centEle.x+=2;
+                centEle.x+=4;
             }
 
         }
@@ -291,6 +318,12 @@ public class Logic extends JPanel implements ActionListener{
             if(oneCent.visibility){
                 g.drawImage(oneCent.getImage(),oneCent.getX(),oneCent.getY(),null);
 
+            }
+        }
+        for(int i=0;i<spider_list.size();i++){
+            Spider spiEle = spider_list.get(i);
+            if(spiEle.visibility){
+                g.drawImage(spiEle.getImage(),spiEle.getX(),spiEle.getY(),null);
             }
         }
 
