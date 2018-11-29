@@ -11,6 +11,10 @@ public class Logic extends JPanel implements ActionListener{
     public BackGround bgimage;
     public ArrayList<Spider> spider_list;
     public static int score=0;
+    private int countSpiMov=0;
+    private int countSpiMovY=0;
+    private int n1=1; //random number 1
+    private int n2=1; //random number 2
 
     int mouseX,mouseY;
     int player_life;
@@ -42,7 +46,7 @@ public class Logic extends JPanel implements ActionListener{
     }
     private void createSpider(){
         spider_list = new ArrayList<Spider>();
-        spider_list.add(new Spider(40,0));
+        spider_list.add(new Spider(40,400));
 
     }
 
@@ -142,21 +146,70 @@ public class Logic extends JPanel implements ActionListener{
 //        return amount;
     }
     public void actionPerformed(ActionEvent e){
-
-        //becomeHead();
+        spiderAction();
         blasterAction();
         gunAction();
         centipedeAction();
         repaint();
     }
-    private void becomeHead(){
-        //after one section dies new head is generated
-        for(int i=1; i<cent_list.size();i++){
-            if(!cent_list.get(i-1).visibility){
-                cent_list.get(i).head=true;
+    private void spiderAction(){
+        for(int i=0;i<spider_list.size();i++){
+            Spider spiEle = spider_list.get(i);
+            if(spiEle.getX()==0){
+                spiEle.x+=2;
+                n1=1;
             }
+            else if(spiEle.getX()==580){
+                spiEle.x-=2;
+                n1=0;
+            }
+            else{
+                if(countSpiMov==0) {
+                    Random rand1 = new Random();
+
+                    n1 = rand1.nextInt(2) + 0;
+                }
+                System.out.println(n1);
+                if(n1==1) {
+                    spiEle.x += 2;
+                }
+                else{
+                    spiEle.x-=2;
+                }
+                countSpiMov++;
+                if(countSpiMov==20){
+                    countSpiMov=0;
+                }
+            }
+            if(spiEle.getY()==0){
+                spiEle.y+=4;
+                n2=1;
+            }
+            else if(spiEle.getY()==760){
+                spiEle.y-=4;
+                n2=0;
+            }
+            else{
+                if(countSpiMovY==0) {
+                    Random rand2 = new Random();
+
+                    n2 = rand2.nextInt(2) + 0;
+                }
+                if (n2 == 1) {
+                    spiEle.y+=4;
+                }
+                else{
+                    spiEle.y-=4;
+                }
+                countSpiMovY++;
+                if(countSpiMovY==20){
+                    countSpiMovY=0;
+                }
+            }
+
         }
     }
+
     private void centipedeAction(){
 
         for (int i=0;i<cent_list.size();i++){
