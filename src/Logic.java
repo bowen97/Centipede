@@ -150,17 +150,22 @@ public class Logic extends JPanel implements ActionListener{
         blasterAction();
         gunAction();
         centipedeAction();
+        if(player_life==0){
+            System.out.println("Game Over");
+            System.exit(0);
+        }
         repaint();
     }
     private void spiderAction(){
-
+            int mvX=2;
+            int mvY=4;
 
             if(spider.getX()==0){
-                spider.x+=2;
+                spider.x+=mvX;
                 n1=1;
             }
             else if(spider.getX()==580){
-                spider.x-=2;
+                spider.x-=mvX;
                 n1=0;
             }
             else{
@@ -171,10 +176,10 @@ public class Logic extends JPanel implements ActionListener{
                 }
                 //System.out.println(n1);
                 if(n1==1) {
-                    spider.x += 2;
+                    spider.x += mvX;
                 }
                 else{
-                    spider.x-=2;
+                    spider.x-=mvX;
                 }
                 countSpiMov++;
                 if(countSpiMov==20){
@@ -182,11 +187,11 @@ public class Logic extends JPanel implements ActionListener{
                 }
             }
             if(spider.getY()==0){
-                spider.y+=4;
+                spider.y+=mvY;
                 n2=1;
             }
             else if(spider.getY()==760){
-                spider.y-=4;
+                spider.y-=mvY;
                 n2=0;
             }
             else{
@@ -196,10 +201,10 @@ public class Logic extends JPanel implements ActionListener{
                     n2 = rand2.nextInt(2) + 0;
                 }
                 if (n2 == 1) {
-                    spider.y+=4;
+                    spider.y+=mvY;
                 }
                 else{
-                    spider.y-=4;
+                    spider.y-=mvY;
                 }
                 countSpiMovY++;
                 if(countSpiMovY==20){
@@ -217,16 +222,20 @@ public class Logic extends JPanel implements ActionListener{
         player_life-=1;
         for(int z=0;z<mush_list_final.size();z++){
             Mushroom mushEle = mush_list_final.get(z);
-            mushEle.life=3;
-            mushEle.picChange(3);
-            mushEle.visibility=true;
-            if(Mushposition.get(z).used){
-                score+=10;
+            if(mushEle.life==1||mushEle.life==2) {
+                mushEle.life = 3;
+                mushEle.picChange(3);
+                //mushEle.visibility = true;
+                //if (Mushposition.get(z).used) {
+                    score += 10;
+                //}
+                //Mushposition.get(z).used = false;
             }
-            Mushposition.get(z).used=false;
         }
         spider.visibility=true;
         spider.life=2;
+        spider.x=40;
+        spider.y=400;
     }
 
 
@@ -328,6 +337,7 @@ public class Logic extends JPanel implements ActionListener{
                         score+=600;
                         spider.visibility=false;
                     }
+                    gun_ele.visibility=false;
                 }
             }
 
